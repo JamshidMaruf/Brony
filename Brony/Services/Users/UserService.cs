@@ -26,14 +26,16 @@ public class UserService : IUserService
 
         users.Add(model.ToConvert<>());
 
-        var convertedUser = users.ToFileFormat();
-
-        FileHelper.WriteToFile(PathHolder.UsersFilePath, convertedUser);
+        FileHelper.WriteToFile(PathHolder.UsersFilePath, users.ToFileFormat<User>());
     }
 
 
     public int Login(string phoneNumber, string password)
     {
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
         var existUser = users.Find(u => u.PhoneNumber == phoneNumber);
         if (existUser == null)
         {
@@ -54,6 +56,7 @@ public class UserService : IUserService
         var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
 
         var users = text.ToObject<User>();
+
         var existUser = users.Find(u => u.Id == id);
         if (existUser == null)
         {
@@ -64,47 +67,83 @@ public class UserService : IUserService
     }
 
 
+<<<<<<< HEAD
     public void Update(
         int id,
         string firstName,
         string lastName,
         string phoneNumber)
+=======
+    public void Update(UserUpdateModel model)
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
     {
-        var existUser = users.Find(u => u.Id == id);
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
+        var existUser = users.Find(u => u.Id == model.Id);
         if (existUser == null)
         {
-            throw new Exception("Phone is not found.");
+            throw new Exception("User is not found.");
         }
 
+<<<<<<< HEAD
         var alreadyExistUser = users.Find(u => u.PhoneNumber == phoneNumber);
+=======
+        var alreadyExistUser = users.Find(u => u.PhoneNumber == model.PhoneNumber);
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
         if (alreadyExistUser != null)
         {
             throw new Exception("User already exists with this phone number.");
         }
 
+<<<<<<< HEAD
         existUser.PhoneNumber = phoneNumber;
         existUser.LastName = lastName;
         existUser.FirsName = firstName;
+=======
+        users.Add(model.ToConvert<UserUpdateModel>());
+
+        var convertedUser = users.ToFileFormat();
+
+        FileHelper.WriteToFile(PathHolder.UsersFilePath, convertedUser);
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
     }
 
     public void Delete(int id)
     {
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
         var existUser = users.Find(u => u.Id == id);
         if (existUser == null)
         {
-            throw new Exception("Phone is not found.");
+            throw new Exception("User is not found.");
         }
 
         users.Remove(existUser);
+
+        var convertedUser = users.ToFileFormat<User>();
+
+        FileHelper.WriteToFile(PathHolder.UsersFilePath, convertedUser);
     }
 
     public List<User> GetAll()
     {
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
         return users;
     }
 
     public List<User> Search(string search)
     {
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
         var result = new List<User>();
 
         if (!string.IsNullOrEmpty(search))
@@ -112,7 +151,7 @@ public class UserService : IUserService
             foreach (var user in users)
             {
                 if (
-                    user.FirsName.ToLower().Contains(search.ToLower()) ||
+                    user.FirstName.ToLower().Contains(search.ToLower()) ||
                     user.LastName.ToLower().Contains(search.ToLower()) ||
                     user.PhoneNumber.ToLower().Contains(search.ToLower()))
                 {
@@ -126,6 +165,10 @@ public class UserService : IUserService
 
     public void ChangePassword(int userId, string oldPassword, string newPassword)
     {
+        var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
+
+        var users = text.ToObject<User>();
+
         var existUser = users.Find(u => u.Id == userId);
         if (existUser == null)
             throw new Exception("User is not found.");
@@ -134,5 +177,9 @@ public class UserService : IUserService
             throw new Exception("Passwords do not match.");
 
         existUser.Password = newPassword;
+
+        var convertedUser = users.ToFileFormat();
+
+        FileHelper.WriteToFile(PathHolder.UsersFilePath, convertedUser);
     }
 }

@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using Brony.Constants;
 using Brony.Domain;
 using Brony.Extensions;
@@ -28,8 +29,7 @@ public class BookingService : IBookingService
         List<Booking> convertedBookings = text.ToBooking();
 
         // check user
-        userService.Get(createModel.UserId);
-
+ 
         // check stadium
         var existStadium = stadiumService.Get(createModel.StadiumId);
 
@@ -143,7 +143,7 @@ public class BookingService : IBookingService
         File.WriteAllLines(PathHolder.BookingsFilePath, bookingsInStringFormat);
     }
 
-    public BookingViewModel Get(int id)
+    public Booking Get(int id)
     {
         string text = FileHelper.ReadFromFile(PathHolder.BookingsFilePath);
 
@@ -154,16 +154,11 @@ public class BookingService : IBookingService
         if (existBooking == null)
         {
             throw new Exception("Booking is not found");
-        }
-
-        foreach(var booking in convertedBookings)
-        {
-            
-            if(booking.)
-        }
-
-        return existBoking;
+        };
+        return existBooking;
     }
+
+ 
 
     public List<Booking> GetAll()
     {
