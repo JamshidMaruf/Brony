@@ -7,7 +7,7 @@ public class Student
 
     public Student()
     {
-        Scores = new List<int>(){2,4,8,1,5,7,3,6,10};
+        Scores = new List<int>() { 2, 4, 8, 1, 5, 7, 3, 6, 10 };
     }
 
     // Output: High = 10, Middle = 5, Low = 1

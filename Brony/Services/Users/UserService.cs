@@ -11,7 +11,7 @@ public class UserService : IUserService
     public UserService()
     {
     }
-    
+
     public void Register(UserRegisterModel model)
     {
         var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
@@ -23,7 +23,7 @@ public class UserService : IUserService
         {
             throw new Exception("User with this phone number already exists.");
         }
-        
+
         users.Add(model.ToConvert<>());
 
         var convertedUser = users.ToFileFormat();
@@ -59,15 +59,15 @@ public class UserService : IUserService
         {
             throw new Exception("User is not found.");
         }
-        
-        return existUser.ToConvert<UserRegisterModel>();   
+
+        return existUser.ToConvert<UserRegisterModel>();
     }
 
 
     public void Update(
         int id,
         string firstName,
-        string lastName, 
+        string lastName,
         string phoneNumber)
     {
         var existUser = users.Find(u => u.Id == id);
@@ -75,13 +75,13 @@ public class UserService : IUserService
         {
             throw new Exception("Phone is not found.");
         }
-        
+
         var alreadyExistUser = users.Find(u => u.PhoneNumber == phoneNumber);
         if (alreadyExistUser != null)
         {
             throw new Exception("User already exists with this phone number.");
         }
-        
+
         existUser.PhoneNumber = phoneNumber;
         existUser.LastName = lastName;
         existUser.FirsName = firstName;
@@ -94,7 +94,7 @@ public class UserService : IUserService
         {
             throw new Exception("Phone is not found.");
         }
-        
+
         users.Remove(existUser);
     }
 
@@ -106,7 +106,7 @@ public class UserService : IUserService
     public List<User> Search(string search)
     {
         var result = new List<User>();
-        
+
         if (!string.IsNullOrEmpty(search))
         {
             foreach (var user in users)
@@ -120,19 +120,19 @@ public class UserService : IUserService
                 }
             }
         }
-        
-        return result;  
+
+        return result;
     }
 
     public void ChangePassword(int userId, string oldPassword, string newPassword)
     {
         var existUser = users.Find(u => u.Id == userId);
-        if(existUser == null)
+        if (existUser == null)
             throw new Exception("User is not found.");
-        
-        if(existUser.Password != oldPassword)
+
+        if (existUser.Password != oldPassword)
             throw new Exception("Passwords do not match.");
-        
+
         existUser.Password = newPassword;
     }
 }
