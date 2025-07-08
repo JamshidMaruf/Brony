@@ -19,25 +19,5 @@ public static class FileHelper
         File.WriteAllLines(filePath, content);
     }
 
-    public static List<string> ToFileFormat<T>(List<T> models)
-    {
-        List<string> modelsInStringFormat = new List<string>();
-
-        foreach (var model in models)
-        {
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            List<string> values = new List<string>();
-
-            foreach (var prop in properties)
-            {
-                object value = prop.GetValue(model);
-                values.Add(value != null ? value.ToString() : "null");
-            }
-
-            string line = string.Join(",", values);
-            modelsInStringFormat.Add(line);
-        }
-
-        return modelsInStringFormat;
-    }
+   
 }
