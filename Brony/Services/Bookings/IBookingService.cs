@@ -11,7 +11,7 @@ public interface IBookingService
 
     void ChangeDateTime(int bookingId, DateTime startDate, DateTime endDate);
     
-    BookingViewModel Get(int id);
+    Booking Get(int id);
 
     List<Booking> GetAll();
 
