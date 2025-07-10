@@ -1,4 +1,5 @@
 using Brony.Domain;
+using Brony.Helpers;
 using Brony.Services.Bookings;
 
 namespace Brony.Services.Stadiums;
@@ -48,7 +49,7 @@ public class StadiumService : IStadiumService
 
         var stadium = new Stadium
         {
-            Id = stadiumId,
+            Id= IdGeneration.IdGenerate(Constants.PathHolder.StadiumIdPath),
             Name = name,
             Width = width,
             Length = length,
@@ -59,8 +60,6 @@ public class StadiumService : IStadiumService
         };
 
         stadiums.Add(stadium);
-
-        stadiumId++;
     }
 
     public void Update(

@@ -1,3 +1,4 @@
+using System.Reflection.Emit;
 using Brony.Constants;
 using Brony.Domain;
 using Brony.Extensions;
@@ -27,7 +28,7 @@ public class BookingService : IBookingService
 
 
         // check user
-        objectHolder.UserService.Get(userId);
+        objectHolder.UserService.Get();
         
         // check stadium
         var existStadium = objectHolder.StadiumService.Get(stadiumId);
@@ -58,9 +59,10 @@ public class BookingService : IBookingService
         
         var booking = new Booking
         {
-            Id = bookingId,
-            UserId = userId,
-            StadiumId = stadiumId,
+            // Each ID is saved to separate path
+            Id = IdGeneration.IdGenerate(Constants.PathHolder.BookingIdPath),
+            UserId = IdGeneration.IdGenerate(Constants.PathHolder.UserIdPath),
+            StadiumId = IdGeneration.IdGenerate(Constants.PathHolder.StadiumIdPath),
             StartTime = startTime,
             EndTime = endTime,
             Price = existStadium.Price
