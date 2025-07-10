@@ -227,7 +227,7 @@ public class StadiumService : IStadiumService
 
         return result;
     }
-    
+
     private List<Stadium> GetAllByLocation(string location)
     {
         var result = new List<Stadium>();
@@ -286,7 +286,7 @@ public class StadiumService : IStadiumService
                 }
             }
         }
-        
+
         return result;
     }
 }

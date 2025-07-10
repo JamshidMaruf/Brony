@@ -1,4 +1,6 @@
-﻿namespace Brony.Helpers;
+﻿using System.Reflection;
+
+namespace Brony.Helpers;
 
 public static class FileHelper
 {
@@ -16,4 +18,6 @@ public static class FileHelper
     {
         File.WriteAllLines(filePath, content);
     }
+
+   
 }

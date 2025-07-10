@@ -67,7 +67,15 @@ public class UserService : IUserService
     }
 
 
+<<<<<<< HEAD
+    public void Update(
+        int id,
+        string firstName,
+        string lastName,
+        string phoneNumber)
+=======
     public void Update(UserUpdateModel model)
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
     {
         var text = FileHelper.ReadFromFile(PathHolder.UsersFilePath);
 
@@ -79,17 +87,27 @@ public class UserService : IUserService
             throw new Exception("User is not found.");
         }
 
+<<<<<<< HEAD
+        var alreadyExistUser = users.Find(u => u.PhoneNumber == phoneNumber);
+=======
         var alreadyExistUser = users.Find(u => u.PhoneNumber == model.PhoneNumber);
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
         if (alreadyExistUser != null)
         {
             throw new Exception("User already exists with this phone number.");
         }
 
+<<<<<<< HEAD
+        existUser.PhoneNumber = phoneNumber;
+        existUser.LastName = lastName;
+        existUser.FirsName = firstName;
+=======
         users.Add(model.ToConvert<UserUpdateModel>());
 
         var convertedUser = users.ToFileFormat();
 
         FileHelper.WriteToFile(PathHolder.UsersFilePath, convertedUser);
+>>>>>>> c3d3f596d441d2dc79d9c76eb851231ffe05ba75
     }
 
     public void Delete(int id)
