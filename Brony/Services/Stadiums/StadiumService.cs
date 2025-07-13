@@ -5,7 +5,6 @@ using Brony.Helpers;
 using Brony.Models;
 using Brony.Models.Stadiums;
 using Brony.Services.Bookings;
-
 namespace Brony.Services.Stadiums;
 
 public class StadiumService : IStadiumService
@@ -39,7 +38,6 @@ public class StadiumService : IStadiumService
             throw new Exception("Phone number should start with '+998'");
         }
        
-
         string content = $"{GeneratorHelper.GenerateId(PathHolder.StadiumsFilePath)},{stadiumCreateModel.Name}," +
             $"{stadiumCreateModel.Width},{stadiumCreateModel.Length},{stadiumCreateModel.Price}," +
             $"{stadiumCreateModel.Location},{stadiumCreateModel.PhoneNumber},{stadiumCreateModel.Description}\n";
@@ -53,7 +51,6 @@ public class StadiumService : IStadiumService
         var stadiums = text.ToStadium();
         var existStadium = stadiums.Find(x => x.Id == model.Id)
             ?? throw new Exception("Stadium is not found");
-
 
         var alreadyExistStadium = stadiums.Find(x => x.Name == model.Name);
 
@@ -122,8 +119,6 @@ public class StadiumService : IStadiumService
         return stadiums;
     }
 
-    
-
     public List<Stadium> GetFilteredList(
         string location,
         decimal? price,
@@ -189,7 +184,6 @@ public class StadiumService : IStadiumService
                 result = dateTimeResult;
             }
         }
-
         return result;
     }
     
@@ -253,7 +247,6 @@ public class StadiumService : IStadiumService
                 }
             }
         }
-        
         return result;
     }
 
