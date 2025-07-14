@@ -130,6 +130,8 @@ public class StadiumService : IStadiumService
         DateTime? startTime,
         DateTime? endTime)
     {
+        var text = FileHelper.ReadFromFile(PathHolder.StadiumsFilePath);
+        var stadiums = text.ToStadium();
         var result = new List<Stadium>();
 
         var locationResult = new List<Stadium>();
